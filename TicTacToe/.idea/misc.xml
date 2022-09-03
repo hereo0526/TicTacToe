@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/m/Documents/GitHub/TicTacToe/TicTacToe/app/src/main/res/drawable/line_diagonal_1.xml" value="0.1953125" />
+        <entry key="..\:/Users/m/Documents/GitHub/TicTacToe/TicTacToe/app/src/main/res/drawable/line_diagonal_2.xml" value="0.1953125" />
+        <entry key="..\:/Users/m/Documents/GitHub/TicTacToe/TicTacToe/app/src/main/res/drawable/line_vertical.xml" value="0.1953125" />
+        <entry key="..\:/Users/m/Documents/GitHub/TicTacToe/TicTacToe/app/src/main/res/drawable/red_bar_horizontal.xml" value="0.1953125" />
         <entry key="..\:/Users/m/Documents/GitHub/TicTacToe/TicTacToe/app/src/main/res/drawable/square_nine.xml" value="0.1953125" />
         <entry key="..\:/Users/m/Documents/GitHub/TicTacToe/TicTacToe/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/m/TicTacToe/app/src/main/res/drawable/square_nine.xml" value="0.1953125" />

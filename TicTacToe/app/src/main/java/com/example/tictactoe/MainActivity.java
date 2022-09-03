@@ -33,13 +33,72 @@ public class MainActivity extends AppCompatActivity {
     private ImageView ox_8;
     private ImageView ox_9;
 
-    private void changeOX(){
+    private ImageView line_1;
+    private ImageView line_2;
+    private ImageView line_3;
+    private ImageView line_4;
+    private ImageView line_5;
+    private ImageView line_6;
+    private ImageView line_7;
+    private ImageView line_8;
+
+    private Button button_restart;
+    private ImageView image_clickblock;
+
+    private void restart(){
+        button_restart.setVisibility(View.VISIBLE);
+        image_clickblock.setVisibility(View.VISIBLE);
+    }x
+    private void winner_check(){
+        if(model.getWinner() == 11 || model.getWinner() == 21){
+            line_1.bringToFront();
+            line_1.setVisibility(View.VISIBLE);
+            restart();
+        }else if(model.getWinner() == 12|| model.getWinner() == 22){
+            line_2.bringToFront();
+            line_2.setVisibility(View.VISIBLE);
+            restart();
+        }else if(model.getWinner() == 13|| model.getWinner() == 23){
+            line_3.bringToFront();
+            line_3.setVisibility(View.VISIBLE);
+            restart();
+        }else if(model.getWinner() == 14|| model.getWinner() == 24){
+            line_4.bringToFront();
+            line_4.setVisibility(View.VISIBLE);
+            restart();
+        }else if(model.getWinner() == 15|| model.getWinner() == 25){
+            line_5.bringToFront();
+            line_5.setVisibility(View.VISIBLE);
+            restart();
+        }else if(model.getWinner() == 16|| model.getWinner() == 26){
+            line_6.bringToFront();
+            line_6.setVisibility(View.VISIBLE);
+            restart();
+        }else if(model.getWinner() == 17|| model.getWinner() == 27){
+            line_7.bringToFront();
+            line_7.setVisibility(View.VISIBLE);
+            restart();
+        }else if(model.getWinner() == 18|| model.getWinner() == 28) {
+            line_8.bringToFront();
+            line_8.setVisibility(View.VISIBLE);
+            restart();
+        }
+        else if(model.getTurnCnt() == 9){
+            button_restart.setVisibility(View.VISIBLE);
+        }
+    }
+    private void changeTurn(){
+        model.setTurnCnt(model.getTurnCnt()+1);
+        winner_check();
         if(model.getTurn() == 0)
             model.setTurn(1);
         else
             model.setTurn(0);
     }
     private void clear(){
+
+        model.clearArr();
+
         box_1.bringToFront();
         box_2.bringToFront();
         box_3.bringToFront();
@@ -60,7 +119,22 @@ public class MainActivity extends AppCompatActivity {
         ox_8.setVisibility(View.INVISIBLE);
         ox_9.setVisibility(View.INVISIBLE);
 
+        line_1.setVisibility(View.INVISIBLE);
+        line_2.setVisibility(View.INVISIBLE);
+        line_3.setVisibility(View.INVISIBLE);
+        line_4.setVisibility(View.INVISIBLE);
+        line_5.setVisibility(View.INVISIBLE);
+        line_6.setVisibility(View.INVISIBLE);
+        line_7.setVisibility(View.INVISIBLE);
+        line_8.setVisibility(View.INVISIBLE);
+
+        button_restart.setVisibility(View.INVISIBLE);
+
         model.setTurn(0);
+        model.setWinnerNum(0);
+        model.setTurnCnt(0);
+
+        image_clickblock.setVisibility(View.INVISIBLE);
     }
     private View decorView;
     private int uiOption;
@@ -91,7 +165,20 @@ public class MainActivity extends AppCompatActivity {
         ox_8 = findViewById(R.id.ox_8);
         ox_9 = findViewById(R.id.ox_9);
 
-        String[] id_OX = {"@drawable/o", "@drawable/x"};
+        line_1 = findViewById(R.id.line_1);
+        line_2 = findViewById(R.id.line_2);
+        line_3 = findViewById(R.id.line_3);
+        line_4 = findViewById(R.id.line_4);
+        line_5 = findViewById(R.id.line_5);
+        line_6 = findViewById(R.id.line_6);
+        line_7 = findViewById(R.id.line_7);
+        line_8 = findViewById(R.id.line_8);
+
+        button_restart = findViewById(R.id.button_restart);
+
+        image_clickblock = findViewById(R.id.image_clickblock);
+
+        String[] id_Turn = {"@drawable/o", "@drawable/x"};
         String packName = this.getPackageName();
 
         decorView = getWindow().getDecorView();
@@ -104,6 +191,11 @@ public class MainActivity extends AppCompatActivity {
 
         clear();
 
+        line_1.setRotation(45);
+        line_2.setRotation(135);
+        image_clickblock.setClickable(true);
+        image_clickblock.bringToFront();
+
         clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,101 +206,133 @@ public class MainActivity extends AppCompatActivity {
         box_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ox_1.bringToFront();
-                int resId = getResources().getIdentifier(id_OX[model.getTurn()], "drawable", packName);
-                ox_1.setImageResource(resId);
-                ox_1.setVisibility(View.VISIBLE);
-                changeOX();
+                if(model.getArr(0, 0) == 0){
+                    model.setArr(0, 0);
+                    ox_1.bringToFront();
+                    int resId = getResources().getIdentifier(id_Turn[model.getTurn()], "drawable", packName);
+                    ox_1.setImageResource(resId);
+                    ox_1.setVisibility(View.VISIBLE);
+                    changeTurn();
+                }
             }
         });
         box_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ox_2.bringToFront();
-                int resId = getResources().getIdentifier(id_OX[model.getTurn()], "drawable", packName);
-                ox_2.setImageResource(resId);
-                ox_2.setVisibility(View.VISIBLE);
-                changeOX();
+                if(model.getArr(1, 0) == 0) {
+                    model.setArr(1, 0);
+                    ox_2.bringToFront();
+                    int resId = getResources().getIdentifier(id_Turn[model.getTurn()], "drawable", packName);
+                    ox_2.setImageResource(resId);
+                    ox_2.setVisibility(View.VISIBLE);
+                    changeTurn();
+                }
             }
         });
         box_3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ox_3.bringToFront();
-                ox_3.setImageResource(0);
-                int resId = getResources().getIdentifier(id_OX[model.getTurn()], "drawable", packName);
-                ox_3.setImageResource(resId);
-                ox_3.setVisibility(View.VISIBLE);
-                changeOX();
+                if(model.getArr(2, 0) == 0) {
+                    model.setArr(2, 0);
+                    ox_3.bringToFront();
+                    ox_3.setImageResource(0);
+                    int resId = getResources().getIdentifier(id_Turn[model.getTurn()], "drawable", packName);
+                    ox_3.setImageResource(resId);
+                    ox_3.setVisibility(View.VISIBLE);
+                    changeTurn();
+                }
             }
         });
         box_4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ox_4.bringToFront();
-                ox_4.setImageResource(0);
-                int resId = getResources().getIdentifier(id_OX[model.getTurn()], "drawable", packName);
-                ox_4.setImageResource(resId);
-                ox_4.setVisibility(View.VISIBLE);
-                changeOX();
+                if(model.getArr(0, 1) == 0) {
+                    model.setArr(0, 1);
+                    ox_4.bringToFront();
+                    ox_4.setImageResource(0);
+                    int resId = getResources().getIdentifier(id_Turn[model.getTurn()], "drawable", packName);
+                    ox_4.setImageResource(resId);
+                    ox_4.setVisibility(View.VISIBLE);
+                    changeTurn();
+                }
             }
         });
         box_5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ox_5.bringToFront();
-                ox_5.setImageResource(0);
-                int resId = getResources().getIdentifier(id_OX[model.getTurn()], "drawable", packName);
-                ox_5.setImageResource(resId);
-                ox_5.setVisibility(View.VISIBLE);
-                changeOX();
+                if(model.getArr(1, 1) == 0) {
+                    model.setArr(1, 1);
+                    ox_5.bringToFront();
+                    ox_5.setImageResource(0);
+                    int resId = getResources().getIdentifier(id_Turn[model.getTurn()], "drawable", packName);
+                    ox_5.setImageResource(resId);
+                    ox_5.setVisibility(View.VISIBLE);
+                    changeTurn();
+                }
             }
         });
         box_6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ox_6.bringToFront();
-                ox_6.setImageResource(0);
-                int resId = getResources().getIdentifier(id_OX[model.getTurn()], "drawable", packName);
-                ox_6.setImageResource(resId);
-                ox_6.setVisibility(View.VISIBLE);
-                changeOX();
+                if(model.getArr(2, 1) == 0) {
+                    model.setArr(2, 1);
+                    ox_6.bringToFront();
+                    ox_6.setImageResource(0);
+                    int resId = getResources().getIdentifier(id_Turn[model.getTurn()], "drawable", packName);
+                    ox_6.setImageResource(resId);
+                    ox_6.setVisibility(View.VISIBLE);
+                    changeTurn();
+                }
             }
         });
         box_7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ox_7.bringToFront();
-                ox_7.setImageResource(0);
-                int resId = getResources().getIdentifier(id_OX[model.getTurn()], "drawable", packName);
-                ox_7.setImageResource(resId);
-                ox_7.setVisibility(View.VISIBLE);
-                changeOX();
+                if(model.getArr(0, 2) == 0) {
+                    model.setArr(0, 2);
+                    ox_7.bringToFront();
+                    ox_7.setImageResource(0);
+                    int resId = getResources().getIdentifier(id_Turn[model.getTurn()], "drawable", packName);
+                    ox_7.setImageResource(resId);
+                    ox_7.setVisibility(View.VISIBLE);
+                    changeTurn();
+                }
             }
         });
         box_8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ox_8.bringToFront();
-                ox_8.setImageResource(0);
-                int resId = getResources().getIdentifier(id_OX[model.getTurn()], "drawable", packName);
-                ox_8.setImageResource(resId);
-                ox_8.setVisibility(View.VISIBLE);
-                changeOX();
+                if(model.getArr(1, 2) == 0) {
+                    model.setArr(1, 2);
+                    ox_8.bringToFront();
+                    ox_8.setImageResource(0);
+                    int resId = getResources().getIdentifier(id_Turn[model.getTurn()], "drawable", packName);
+                    ox_8.setImageResource(resId);
+                    ox_8.setVisibility(View.VISIBLE);
+                    changeTurn();
+                }
             }
         });
         box_9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ox_9.bringToFront();
-                ox_9.setImageResource(0);
-                int resId = getResources().getIdentifier(id_OX[model.getTurn()], "drawable", packName);
-                ox_9.setImageResource(resId);
-                ox_9.setVisibility(View.VISIBLE);
-                changeOX();
+                if(model.getArr(2, 2) == 0) {
+                    model.setArr(2, 2);
+                    ox_9.bringToFront();
+                    ox_9.setImageResource(0);
+                    int resId = getResources().getIdentifier(id_Turn[model.getTurn()], "drawable", packName);
+                    ox_9.setImageResource(resId);
+                    ox_9.setVisibility(View.VISIBLE);
+                    changeTurn();
+                }
             }
         });
-
+        button_restart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clear();
+            }
+        });
 
     }
 }
